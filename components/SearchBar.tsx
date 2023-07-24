@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { SearchFlavour } from "./";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import SearchFlavor from './SearchFlavor';
 
 const SearchButton = ({ otherClasses } : {otherClasses: string}) => (
   <button type="submit" className={`-ml-3 z-10 ${otherClasses}`}>
@@ -18,41 +19,30 @@ const SearchButton = ({ otherClasses } : {otherClasses: string}) => (
   </button>
 )
 
-const SearchBar = () => {
-    const [flavor, setFlavor] = useState('');
+const SearchBar = ({ setFlavor }) => {
+    const [searchFlavor, setSearchFlavor] = useState('');
     const router = useRouter();
     
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if(flavor === "") {
+      if(searchFlavor === "") {
         return alert('No hay nada en la barra de búsqueda')
       }
 
-      updateSearchParams(flavor.toLowerCase())
-    }
-
-    const updateSearchParams = (flavor: string) => {
-      const searchParams = new URLSearchParams(window.location.search);
-
-      if(flavor) {
-        searchParams.set('flavor', flavor)
-      } else {
-        searchParams.delete('flavor')
-      }
-
-      const newPathname = `${window.location.pathname}?${searchParams.toString()}`
+      setFlavor(searchFlavor)
+      console.log(searchFlavor);
       
-      router.push(newPathname);
     }
+
 
   return (
     <form className='searchbar' onSubmit={handleSearch}>
         <div className="searchbar__item">
-            <SearchFlavour
-                flavor={flavor}
-                setFlavor={setFlavor}
+            <SearchFlavor
+                selected={searchFlavor}
+                setSelected={setSearchFlavor}
             />
             <SearchButton otherClasses="sm:hidden" />
         </div>

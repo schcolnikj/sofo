@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { flavors } from '@/constants';
 import { SearchFlavorProps } from '@/types'
 
-const SearchFlavor = ({ flavor, setFlavor } : SearchFlavorProps) => {
+const SearchFlavor = ({ selected, setSelected } : SearchFlavorProps) => {
     const [query, setQuery] = useState('');
 
     const filteredFlavors = query === ""  ?
@@ -20,7 +20,7 @@ const SearchFlavor = ({ flavor, setFlavor } : SearchFlavorProps) => {
 
   return (
     <div className='search-manufacturer'>
-        <Combobox value={flavor} onChange={setFlavor}>
+        <Combobox value={selected} onChange={setSelected}>
             <div className='relative w-full'>
                 <Combobox.Button className='absolute top-[14px]'>
                     <Image

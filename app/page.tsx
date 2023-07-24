@@ -1,15 +1,46 @@
-import Image from 'next/image'
+"use client"
+
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 import { CustomFilter, FlavorCard, Hero, SearchBar, ShowMore } from '@/components'
 import { fetchFlavors } from '@/utils'
 import { categorias } from '@/constants';
 
-export default async function Home({ searchParams }) {
-  const allFlavors = await fetchFlavors({ name: searchParams.flavor || ""});
-  const filteredFlavors = allFlavors.filter((flavor) => flavor.name.toLowerCase() === searchParams.flavor)
-  const filteredCategorias= allFlavors.filter((flavor) => flavor.categoria.toLowerCase() === searchParams.Categoría)
+export default function Home() {
+  const [allFlavors, setAllFlavors] = useState([]);
+  // const [filteredFlavors, setFilteredFlavors] = useState([]);
+  // const [filteredCategorias, setFilteredCategorias] = useState([]);
 
+
+  const [loading, setLoading] = useState(false);
+
+  const [flavor, setFlavor] = useState ("");
+  const [categoria, setCategoria] = useState("");
+
+  const [limit, setLimit] = useState(10);
+
+  const getFlavors = async () => {
+    try {
+      setLoading(true)
+      const result = await fetchFlavors({ name: flavor || ""});
+      setAllFlavors(result);
+    } catch (error) {
+      console.log(error)
+    }finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getFlavors();
+    
+  }, [allFlavors, categoria, flavor, categoria, limit])
   
+  
+  
+  const filteredCategorias= allFlavors.filter((f) => f.categoria.toLowerCase() === categoria.toLowerCase())
+  const filteredFlavors = allFlavors.filter((f) => f.name.toLowerCase() === flavor.toLowerCase())
   
 
   return (
@@ -27,15 +58,15 @@ export default async function Home({ searchParams }) {
         </div>
         
         <div className='home__filters'>
-          <SearchBar />
+          <SearchBar setFlavor={setFlavor}  />
 
           <div className='home__filter-container'>
-            <CustomFilter title="Categoría" options={categorias} />
+            <CustomFilter title="Categoría" options={categorias} setFilter={setCategoria} />
           </div>
         </div>
 
 
-        {filteredFlavors.length || filteredCategorias.length > 0 ?
+        {flavor.length || categoria.length > 0 ?
         <section>
           <div className='home__cars-wrapper'>
             {filteredFlavors?.map((flavor) => (
@@ -45,6 +76,18 @@ export default async function Home({ searchParams }) {
               <FlavorCard flavor={flavor} />
             ))}
           </div>
+
+          {loading && (
+            <div className='mt-16 w-full flex-center'>
+              <Image
+                src="/loader.svg"
+                alt="loader"
+                height={50}
+                width={50}
+                className="object-contain"
+              />
+            </div>
+          )}
         </section>
 
         :
@@ -59,8 +102,11 @@ export default async function Home({ searchParams }) {
         }
 
         <ShowMore
-          pageNumber={(searchParams.pageNumber || 10) / 10}
-          isNext={(searchParams.limit || 10) > allFlavors.length}
+          pageNumber={limit / 10}
+          isNext={limit > allFlavors.length}
+          setLimit = {setLimit}
+          setFlavor={setFlavor}
+          setCategoria={setCategoria}
         />
 
       </div>
