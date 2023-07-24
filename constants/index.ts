@@ -1,4 +1,9 @@
-export const flavoures= [
+import Flavors from '@/constants/flavors.json'
+
+
+const allFlavors = Flavors;
+
+export const flavors = [
   "Vainilla",
   "Chocolate",
   "Frutilla",
@@ -31,7 +36,6 @@ export const flavoures= [
   "Brownie",
   "Snickers",
   "Chocolate Patagónico",
-  "Limón",
   "Mousse de Maracuya",
   "Lemon Pie",
   "Tramontana",
@@ -44,46 +48,37 @@ export const flavoures= [
   "Super Dulce de Leche",
   "Dulce de Leche Bariloche",
   "Menta",
-  "Snickers",
   "Maracuyá",
-  "Lima y menta",
-  "Chocolate Patagónico",
-  "Limón",
-  "Mousse de Maracuya",
-  "Lemon Pie",
-  "Tramontana",
-  "Dulce de Leche Mil Hojas",
-  "After Ocho",
-  "Maracuyá y Kiwi",
 ];
-  
-  export const yearsOfProduction = [
-    { title: "Year", value: "" },
-    { title: "2015", value: "2015" },
-    { title: "2016", value: "2016" },
-    { title: "2017", value: "2017" },
-    { title: "2018", value: "2018" },
-    { title: "2019", value: "2019" },
-    { title: "2020", value: "2020" },
-    { title: "2021", value: "2021" },
-    { title: "2022", value: "2022" },
-    { title: "2023", value: "2023" },
-  ];
-  
-  export const fuels = [
+
+
+  export const categorias = [
     {
-      title: "Fuel",
+      title: "Seleccione una categoría",
       value: "",
     },
     {
-      title: "Gas",
-      value: "Gas",
+      title: "Frutales",
+      value: "frutal",
     },
     {
-      title: "Electricity",
-      value: "Electricity",
+      title: "Cremosos",
+      value:"cremas"
     },
   ];
+
+  // allFlavors.filter((flavor) => flavor.categoria === "frutal").map((flavor) => ({
+  //   title: flavor.name,
+  //   value: flavor.categoria
+  // }))
+  
+  // export const cremas = 
+  //   allFlavors.filter((flavor) => flavor.categoria === "cremas").map((flavor) => ({
+  //     title: flavor.name,
+  //     value: flavor.categoria
+  //   }))
+  // ;
+  
   
   export const footerLinks = [
     {
@@ -114,3 +109,5 @@ export const flavoures= [
       ],
     },
   ];
+
+        

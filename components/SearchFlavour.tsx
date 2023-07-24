@@ -5,14 +5,14 @@ import { useState, Fragment } from 'react';
 import { Combobox, Transition } from '@headlessui/react'
 import Image from 'next/image';
 
-import { flavoures } from '@/constants';
-import { SearchFlavourProps } from '@/types'
+import { flavors } from '@/constants';
+import { SearchFlavorProps } from '@/types'
 
-const SearchFlavour = ({ flavour, setFlavour } : SearchFlavourProps) => {
+const SearchFlavor = ({ flavor, setFlavor } : SearchFlavorProps) => {
     const [query, setQuery] = useState('');
 
-    const filteredFlavoures = query === ""  ?
-    flavoures : flavoures.filter((item) => (
+    const filteredFlavors = query === ""  ?
+    flavors : flavors.filter((item) => (
         item.toLowerCase()
         .replace(/\s+/g, "")
         .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -20,7 +20,7 @@ const SearchFlavour = ({ flavour, setFlavour } : SearchFlavourProps) => {
 
   return (
     <div className='search-manufacturer'>
-        <Combobox value={flavour} onChange={setFlavour}>
+        <Combobox value={flavor} onChange={setFlavor}>
             <div className='relative w-full'>
                 <Combobox.Button className='absolute top-[14px]'>
                     <Image
@@ -47,7 +47,7 @@ const SearchFlavour = ({ flavour, setFlavour } : SearchFlavourProps) => {
                 afterLeave={() => setQuery('')}
                 >   
                     <Combobox.Options>
-                        {filteredFlavoures.length === 0 && query !== "" ? (
+                        {filteredFlavors.length === 0 && query !== "" ? (
                             <Combobox.Option
                                 value={query}
                                 className='search-manufacturer__option'
@@ -55,12 +55,12 @@ const SearchFlavour = ({ flavour, setFlavour } : SearchFlavourProps) => {
                                 No tenemos el sabor "{query}" !
                             </Combobox.Option>
                         ) : (
-                            filteredFlavoures.map((flavour) => (
+                            filteredFlavors.map((flavor) => (
                                 <Combobox.Option
-                                    key={flavour}
+                                    key={flavor}
                                     className={({ active }) => `first-letter:relative search-manufacturer__option ${active ? 
                                         'bg-primary-blue text-white' : "text-gray-900"}`}
-                                    value={flavour}
+                                    value={flavor}
                                 >
                                     {({ selected, active }) => (
                                         <>
@@ -69,7 +69,7 @@ const SearchFlavour = ({ flavour, setFlavour } : SearchFlavourProps) => {
                                                 selected ? 'font-medium' : 'font-normal'
                                             }`}
                                             >
-                                            {flavour}
+                                            {flavor}
                                             </span>
                                             {selected ? (
                                             <span
@@ -92,4 +92,4 @@ const SearchFlavour = ({ flavour, setFlavour } : SearchFlavourProps) => {
   )
 }
 
-export default SearchFlavour
+export default SearchFlavor;

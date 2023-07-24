@@ -5,6 +5,9 @@ import Footer from "./Footer";
 import SearchBar from "./SearchBar";
 import SearchFlavour from "./SearchFlavour";
 import CustomFilter from "./CustomFilter";
+import FlavorCard from "./FlavorCard";
+import FlavorDetails from "./FlavorDetails";
+import ShowMore from "./ShowMore";
 
 export {
     Hero,
@@ -14,4 +17,7 @@ export {
     SearchBar,
     CustomFilter,
     SearchFlavour,
+    FlavorCard,
+    FlavorDetails,
+    ShowMore,
 }
